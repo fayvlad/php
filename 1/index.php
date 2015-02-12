@@ -8,6 +8,8 @@
 
 $displayfirst = 'none';
 $secondtask = 'none';
+$thirdtask = 'none';
+$taskfour = 'none';
 if (isset($_POST['submit'])) {
     if (strlen($_POST['number']) > 0) {
         if (is_numeric($_POST['number'])) {
@@ -37,10 +39,49 @@ if (isset($_POST['submit'])) {
         $fsoname = mb_substr($fsoname, 0, 2);
         $fparent = $fio[2];
         $fparent = mb_substr($fparent, 0, 2);
-        $fioresult = $fname.' '.$fsoname.'. '.$fparent.'.';
+        $fioresult = $fname . ' ' . $fsoname . '. ' . $fparent . '.';
+    }
+
+    if (strlen($_POST['array']) > 0) {
+        $count = $_POST['array'];
+        $thirdtask = 'block';
+        $summ = 1;
+        for ($i = 1; $i <= $count; $i++) {
+            $myarr[$i] = mt_rand(1, 100);
+            if ($myarr[$i] > 0 && $i % 2 == 0) {
+                $summ = $summ * $myarr[$i];
+            }
+            if ($myarr[$i] > 0 && $i % 2 != 0) {
+                $nepar[] = $myarr[$i];
+            }
+        }
+        $myarr = implode(" _ ", $myarr);
+        $nepar = implode(" _ ", $nepar);
+    }
+
+    if (strlen($_POST['karti']) > 0) {
+        $value = $_POST['karti'];
+        $taskfour = 'block';
+        $cardresult='';
+        $card["Шестерка"] = 6;
+        $card["Семерка"] = 7;
+        $card["Восьмерка"] = 8;
+        $card["Девятка"] = 9;
+        $card["Десятка"] = 10;
+        $card["Валет"] = 11;
+        $card["Дама"] = 12;
+        $card["Король"] = 13;
+        $card["Туз"] = 14;
+        foreach ($card as $key => $val) {
+            if ($val == $value) {
+                $cardresult = $key;
+            }elseif($value<6||$value>14||is_numeric($value)==false){
+                $cardresult = 'Карты не существует';
+            }
+
+        }
     }
 }
-
 ?>
 
 <form action="index.php" method="post">
@@ -50,6 +91,12 @@ if (isset($_POST['submit'])) {
     <label for="fio">Задание 2</label>
     <input type="text" name="fio">
     <br>
+    <label for="array">Задание 3</label>
+    <input type="text" name="array">
+    <br>
+    <label for="array">Задание 4</label>
+    <input type="text" name="karti">
+    <br> <br>
     <input type="hidden" name="submit">
     <input type="submit">
 </form>
@@ -61,8 +108,29 @@ if (isset($_POST['submit'])) {
 </div>
 
 
-<div class="secondtask" style="display: <?= $secondtask ?>">
+<div style="display: <?= $secondtask ?>">
     <h3>Сокращенное ФИО</h3>
 
     <p><?= $fioresult ?></p>
+</div>
+
+<div style="display: <?= $thirdtask ?>">
+    <p>
+
+    <h3>Массив </h3><?= $myarr ?></p>
+
+    <p>
+
+    <h3>Произведение парных индексов = </h3> <?= $summ ?></p>
+
+    <p>
+
+    <h3>Не парные индексы = </h3> <?= $nepar ?></p>
+
+</div>
+
+<div style="display: <?= $taskfour ?>">
+    <h3>Ваша карта - </h3>
+
+    <p><?= $cardresult ?></p>
 </div>
