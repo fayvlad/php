@@ -5,25 +5,47 @@
  * User: ПК
  * Date: 12.02.2015
  * Time: 15:52
-Фигура должна быть абстрактным классом.
-Этот класс хранит координаты х и у - расположения фигуры.
-Поведение (методы) класса должны быть заданы интерфейсом.
+ * Фигура должна быть абстрактным классом.
+ * Этот класс хранит координаты х и у - расположения фигуры.
+ * Поведение (методы) класса должны быть заданы интерфейсом.
  */
 abstract class Figure implements iFigure
 {
     public $x;
     public $y;
-    public  function alert(){
+    public $type;
+
+    public function getByType()
+    {
+        if ($this->type == 1) {
+            return new Circle();
+        }
+        if ($this->type == 2) {
+            return new Rectangle();
+        }
+        if ($this->type == 3) {
+            return new Triangle();
+        }
+    }
+
+    public function alert()
+    {
 
     }
-    public function drag($x, $y){
+
+    public function drag($x, $y)
+    {
 
     }
-    public function map($x, $y, $map){
+
+    public function map($x, $y, $map)
+    {
 
     }
-    public function area($x, $y){
 
+    public function area($x, $y)
+    {
+        getByType();
     }
 }
 
@@ -41,23 +63,11 @@ abstract class Figure implements iFigure
 
 interface iFigure
 {
-    public  function alert();
+    public function alert();
+
     public function drag($x, $y);
+
     public function map($x, $y, $map);
+
     public function area($x, $y);
-}
-
-class Circle extends Figure
-{
-
-}
-
-class Rectangle extends Figure
-{
-
-}
-
-class Triangle extends Figure
-{
-
 }
