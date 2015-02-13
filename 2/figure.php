@@ -13,44 +13,36 @@ abstract class Figure implements iFigure
 {
     public $x;
     public $y;
-    public $type;
+    public static $type;
 
-    public function getByType()
+    static function getChild($name)
     {
-        if ($this->type == 1) {
-            return new Circle();
-        }
-        if ($this->type == 2) {
-            return new Rectangle();
-        }
-        if ($this->type == 3) {
-            return new Triangle();
-        }
+        return new $name();
     }
 
-    public function alert()
-    {
+    abstract function show($x, $y);
 
+    function drag($x=0, $y=0)
+    {
+        echo('
+    <style type="text/css">
+    .figure {
+        margin-top: ' . $x . 'px;
+        margin-left: ' . $y . 'px;
     }
-
-    public function drag($x, $y)
-    {
+    </style>
+    ');
 
     }
 
-    public function map($x, $y, $map)
-    {
+    abstract function map($x, $y, $map);
 
-    }
+    abstract function area($x, $y);
 
-    public function area($x, $y)
-    {
-        getByType();
-    }
 }
 
 /*
- * Методы класса:
+Методы класса:
 1) абстрактный метод вывода на экран;
 2) метод для перемещения;
 3) абстрактный метод масштабирования - умножения значений координат на масштабный коэффициент.
@@ -63,7 +55,7 @@ abstract class Figure implements iFigure
 
 interface iFigure
 {
-    public function alert();
+    public function show($x, $y);
 
     public function drag($x, $y);
 
