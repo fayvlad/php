@@ -22,7 +22,7 @@ abstract class Figure implements iFigure
 
     abstract function show($x, $y);
 
-    function drag($x=0, $y=0)
+    function drag($x = 0, $y = 0)
     {
         echo('
     <style type="text/css">

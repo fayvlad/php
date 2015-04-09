@@ -16,7 +16,7 @@ class triangle extends Figure
                 border-bottom: ' . $y . 'px solid #000000; "></div>');
     }
 
-    function map($x, $y, $map=0)
+    function map($x, $y, $map = 0)
     {
         $xmap = $x * $map;
         $ymap = $y * $map;
